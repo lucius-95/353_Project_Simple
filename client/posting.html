@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 3</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 3px 10px;
+            column-width: 300px;
+            max-width: 900px;
+        }
+    </style>
+</head>
+
+
+<body onload=postOrder()>
+
+<script type = "text/javascript">
+    let oType = "Ascending";    // Order type (asc/desc)
+	let oBy = "Time";           // Order by (time/topic)
+
+    /* Update the values of oType and oBy depending on the options chosen by client */
+    function updateOrder() {
+		oType = document.getElementById("orderType").value;
+		oBy = document.getElementById("orderBy").value;
+
+		// Call postOrder() to update the messages table
+		postOrder();
+    }
+
+	// Update the messages table using given data which is a list of objects containing topic, data and timestamp
+    function updateTable(data) {
+	    let table = "";
+	    for (let i=0; i < data.length; i++) {
+		    table += "<tr><td>" +
+			    data[i].topic + "</td><td>" +
+			    data[i].data + "</td><td>" +
+			    data[i].timestamp +
+			    "</td></tr>";
+	    }
+	    document.getElementById("messages").innerHTML = table;
+    }
+
+	// Post a message with topic and data given by the client
+	function postMessage() {
+		let http = new XMLHttpRequest();
+		let params = "topic=" + document.getElementById("topic").value +
+			"&data=" + document.getElementById("data").value;
+
+		http.open("POST", "/postMessage", true);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.send(params);
+
+		http.onload = () => {
+			if (http.status === 200) {
+				updateTable(http.response);
+				alert("Message posted successfully!");
+			} else {
+				alert("ERROR: Message failed to post!");
+			}
+		};
+
+	}
+
+	// Post the order chosen by the client
+    function postOrder() {
+	    let http = new XMLHttpRequest();
+	    let params = "type=" + oType + "&by=" + oBy;
+	    http.responseType = "json";
+
+	    http.open("POST", "/postOrder", true);
+	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    http.send(params);
+
+	    http.onload = () => {
+		    if (http.status === 200) {
+			    updateTable(http.response);
+		    }
+	    }
+    }
+
+	setInterval("postOrder()", 1000);
+</script>
+
+<label for="topic"><b>New Topic</b></label>
+<input id="topic" type="text" name="topic" value=""><br> <br>
+<label for="data"><b>New Data</b></label>
+<input id="data" type="text" name="data" value=""><br><br>
+<button onclick="postMessage()">Post</button><br><br><br>
+
+<label><b>Sort by:</b>
+    <select id="orderType" onchange="updateOrder()">
+        <option>Ascending</option>
+        <option>Descending</option>
+    </select>
+</label>
+<label>
+    <select id="orderBy" onchange="updateOrder()">
+        <option>Time</option>
+        <option>Topic</option>
+    </select>
+</label><br><br>
+
+<table>
+    <thead style="font-weight: bold; text-align: center">
+    <tr>
+        <td>Topic</td>
+        <td>Data</td>
+        <td>Timestamp</td>
+    </tr>
+    </thead>
+    <tbody id="messages">
+    </tbody>
+</table>
+
+</body>
+
+</html>
