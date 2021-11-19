@@ -1,13 +1,5 @@
 version: "3"
 services:
-  node1:
-    build: ./
-    depends_on:
-      - mysql1
-    container_name: server
-    ports:
-      - "8080:8080"
-
   mysql1:
     image: mysql:5.7.31
     container_name: db1
@@ -15,7 +7,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: assignment
+      MYSQL_DATABASE: project_simple
     volumes:
       - db:/var/lib/mysql
 
