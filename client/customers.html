@@ -5,96 +5,11 @@
 		<title>List of Customers</title>
 		<link href="css/show-users.css" rel="stylesheet" />
 	</head>
-	<body onload="showCustomer()">
+	<body onload="showUsers('Customer')">
+		<script type="text/javascript" src="./functions/add-user.js"></script>
+		<script type="text/javascript" src="./functions/show-users.js"></script>
 		<script type="text/javascript">
-			function showCustomer() {
-				let http = new XMLHttpRequest();
-				http.responseType = "json";
-				http.open("POST", "/show-users", true);
-				http.setRequestHeader(
-					"Content-type",
-					"application/x-www-form-urlencoded"
-				);
-				http.send("role=Customer");
-
-				http.onload = () => {
-					if (http.status === 200) {
-						updateTable(http.response);
-					}
-				};
-			}
-
-			function addCustomer() {
-				let firstname = document.getElementById("firstname").value;
-				let lastname = document.getElementById("lastname").value;
-
-				if (!(firstname && lastname)) {
-					alert("ERROR: First name and/or last name must not be empty!");
-				} else {
-					let http = new XMLHttpRequest();
-					let params =
-						"firstname=" +
-						firstname +
-						"&lastname=" +
-						lastname +
-						"&role=Customer";
-
-					http.open("POST", "/add-user", true);
-					http.setRequestHeader(
-						"Content-type",
-						"application/x-www-form-urlencoded"
-					);
-					http.send(params);
-
-					http.onload = () => {
-						if (http.status === 200) {
-							alert("Customer added successfully!");
-						} else {
-							alert("ERROR: Failed to add customer!");
-						}
-					};
-				}
-			}
-
-			function deleteCustomer(id) {
-				let name = document.getElementById(id).name;
-				if (confirm(`Delete customer ${name} whose ID is ${id}?`)) {
-					let http = new XMLHttpRequest();
-					let param = "id=" + id;
-
-					http.responseType = "json";
-					http.open("POST", "/delete-user", true);
-					http.setRequestHeader(
-						"Content-type",
-						"application/x-www-form-urlencoded"
-					);
-					http.send(param);
-				}
-			}
-
-			function updateTable(data) {
-				let table = "";
-				for (let i = 0; i < data.length; i++) {
-					let { id, firstname, lastname } = data[i];
-					table +=
-						"<tr><td>" +
-						id +
-						"</td><td>" +
-						firstname +
-						"</td><td>" +
-						lastname +
-						"</td><td><button id='" +
-						id +
-						"' name='" +
-						firstname +
-						" " +
-						lastname +
-						"' type='submit' onclick=deleteCustomer(this.id)>Delete</button></td></tr>";
-				}
-				document.getElementById("customers").innerHTML = table;
-			}
-
-			setInterval("showCustomer()", 1000);
+			setInterval("showUsers('Customer')", 1000);
 		</script>
 
 		<p><b>ADD NEW CUSTOMER</b></p>
@@ -103,7 +18,7 @@
 		<br />
 		<label for="lastname"><b>Last Name:</b></label>
 		<input id="lastname" type="text" value="" /><br /><br />
-		<button onclick="addCustomer()">Add</button><br /><br /><br />
+		<button onclick="addUser('Customer')">Add</button><br /><br /><br />
 
 		<p><b>LIST OF CURRENT CUSTOMERS</b></p>
 		<table style="text-align: center">
@@ -115,7 +30,7 @@
 					<td>Delete Customer</td>
 				</tr>
 			</thead>
-			<tbody id="customers"></tbody>
+			<tbody id="Customer"></tbody>
 		</table>
 	</body>
 </html>
