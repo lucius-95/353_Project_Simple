@@ -8,12 +8,9 @@ const pool = mysql.createPool({
 	database: "simple",
 });
 
-let getConnection = function (cb) {
-	pool.getConnection(function (err, connection) {
-		if (err) {
-			return cb(err);
-		}
-		cb(null, connection);
+module.exports = function getConnection(callback) {
+	pool.getConnection((err, con) => {
+		if (err) return callback(err);
+		callback(null, con);
 	});
 };
-module.exports = getConnection;

@@ -2,7 +2,7 @@
 
 // Load packages
 const express = require("express");
-let { showStaff } = require("./show_staff");
+const { showStaff, showCustomers } = require("./show_users");
 
 // Definitions
 const PORT = 8080;
@@ -11,8 +11,8 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
-// Post method to let user post a new message
 app.get("/show-staff", showStaff);
+app.get("/show-users", showCustomers);
 
 app.use("/", express.static("../client"));
 
