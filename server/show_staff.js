@@ -1,3 +1,12 @@
+let getConnection = require("./db");
+
 exports.showStaff = function (req, res) {
-	console.log("here we go");
+	getConnection(function (err, con) {
+		if (err) throw err;
+		let sql = "SELECT * FROM users ORDER BY username";
+		con.query(sql, function (err, data) {
+			res.json(data);
+			con.release();
+		});
+	});
 };
