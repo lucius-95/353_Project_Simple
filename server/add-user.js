@@ -45,7 +45,7 @@ exports.addEvent = (req, res) => {
 				res.status(404);
 				res.send("Failed");
 			}
-			con.release();
 		});
+		con.release();
 	});
 };
