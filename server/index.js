@@ -3,6 +3,7 @@
 // Load packages
 const express = require("express");
 const { showStaff, showCustomers } = require("./show_users");
+let { auth } = require("./auth");
 
 // Definitions
 const PORT = 8080;
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/show-staff", showStaff);
 app.get("/show-users", showCustomers);
+app.post("/auth", auth);
 
 app.use("/", express.static("../client"));
 
