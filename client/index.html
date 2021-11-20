@@ -2,72 +2,16 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Assignment 3</title>
-		<style>
-			table,
-			th,
-			td {
-				border: 1px solid black;
-				border-collapse: collapse;
-				padding: 3px 10px;
-				column-width: 300px;
-				max-width: 900px;
-			}
-		</style>
+		<title>About Us</title>
 	</head>
-	<body onload="showStaff()">
-		<script type="text/javascript">
-			function showStaff() {
-				let http = new XMLHttpRequest();
-				http.responseType = "json";
-				http.open("GET", "/show-staff", true);
-				http.setRequestHeader(
-					"Content-type",
-					"application/x-www-form-urlencoded"
-				);
-				http.send();
 
-				http.onload = () => {
-					if (http.status === 200) {
-						updateTable(http.response);
-					}
-				};
-			}
-
-			function updateTable(data) {
-				let table = "";
-				for (let i = 0; i < data.length; i++) {
-					table +=
-						"<tr><td>" +
-						data[i].username +
-						"</td><td>" +
-						data[i].name +
-						"</td><td>" +
-						data[i].role +
-						"</td></tr>";
-				}
-				document.getElementById("staff").innerHTML = table;
-			}
-
-			setInterval("showStaff()", 1000);
-		</script>
-
-		<label for="topic"><b>New Topic</b></label>
-		<input id="topic" type="text" name="topic" value="" /><br />
-		<br />
-		<label for="data"><b>New Data</b></label>
-		<input id="data" type="text" name="data" value="" /><br /><br />
-		<button onclick="postMessage()">Post</button><br /><br /><br />
-
-		<table>
-			<thead style="font-weight: bold; text-align: center">
-				<tr>
-					<td>Username</td>
-					<td>Name</td>
-					<td>Role</td>
-				</tr>
-			</thead>
-			<tbody id="staff"></tbody>
-		</table>
+	<body style="text-align: center">
+		<h1>Welcome to NOMOSNOW</h1>
+		<p style="font-size: larger">
+			Please
+			<a href="login.html"><link />Login</a>
+			or
+			<a href="register.html"><link />Register</a>
+		</p>
 	</body>
 </html>

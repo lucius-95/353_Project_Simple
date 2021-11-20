@@ -3,8 +3,8 @@ let getConnection = require("./db");
 exports.auth = function (req, res) {
 	getConnection((err, con) => {
 		if (err) throw err;
-		var username = req.body.username;
-		var password = req.body.password;
+		let username = req.body.username;
+		let password = req.body.password;
 		if (username && password) {
 			con.query(
 				"SELECT * FROM users WHERE username = ? AND password = ?",
