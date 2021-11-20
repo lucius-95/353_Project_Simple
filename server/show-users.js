@@ -1,23 +1,11 @@
-let getConnection = require("./db");
+const getConnection = require("./db");
 
-exports.showStaff = (req, res) => {
+exports.showUsers = (req, res) => {
 	getConnection((err, con) => {
 		if (err) throw err;
-		console.log("Staff database connected!");
-		let sql = "SELECT * FROM users WHERE role='Staff' ORDER BY username";
-		con.query(sql, (err, data) => {
-			if (err) throw err;
-			res.json(data);
-			con.release();
-		});
-	});
-};
-
-exports.showCustomers = (req, res) => {
-	getConnection((err, con) => {
-		if (err) throw err;
-		console.log("Customers database connected!");
-		let sql = "SELECT * FROM users WHERE role='Customer' ORDER BY username";
+		console.log("Database connected!");
+		let { role } = req.body;
+		let sql = `SELECT * FROM users WHERE role='${role}' ORDER BY role`;
 		con.query(sql, (err, data) => {
 			if (err) throw err;
 			res.json(data);

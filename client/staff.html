@@ -10,12 +10,13 @@
 			function showStaff() {
 				let http = new XMLHttpRequest();
 				http.responseType = "json";
-				http.open("GET", "/show-staff", true);
+
+				http.open("POST", "/show-users", true);
 				http.setRequestHeader(
 					"Content-type",
 					"application/x-www-form-urlencoded"
 				);
-				http.send();
+				http.send("role=Staff");
 
 				http.onload = () => {
 					if (http.status === 200) {
@@ -24,10 +25,39 @@
 				};
 			}
 
-			function deleteStaff(id) {
-				if (confirm(`Delete staff whose username is ${id}?`)) {
+			function addStaff() {
+				let firstname = document.getElementById("firstname").value;
+				let lastname = document.getElementById("lastname").value;
+
+				if (!(firstname && lastname)) {
+					alert("ERROR: First name and/or last name must not be empty!");
+				} else {
 					let http = new XMLHttpRequest();
-					let param = "username=" + id;
+					let params = "firstname=" + firstname + "&lastname=" + lastname;
+
+					http.open("POST", "/add-staff", true);
+					http.setRequestHeader(
+						"Content-type",
+						"application/x-www-form-urlencoded"
+					);
+					http.send(params);
+
+					http.onload = () => {
+						if (http.status === 200) {
+							updateTable(http.response);
+							alert("Staff added successfully!");
+						} else {
+							alert("ERROR: Failed to add staff!");
+						}
+					};
+				}
+			}
+
+			function deleteStaff(id) {
+				let name = document.getElementById(id).name;
+				if (confirm(`Delete staff ${name} whose ID is ${id}?`)) {
+					let http = new XMLHttpRequest();
+					let param = "id=" + id;
 
 					http.responseType = "json";
 					http.open("POST", "/delete-user", true);
@@ -48,25 +78,57 @@
 			function updateTable(data) {
 				let table = "";
 				for (let i = 0; i < data.length; i++) {
+					let { id, firstname, lastname } = data[i];
 					table +=
 						"<tr><td>" +
-						data[i].username +
+						id +
 						"</td><td>" +
-						data[i].name +
-						"</td><td><button id=" +
-						data[i].username +
-						" type=submit onclick=deleteStaff(this.id)>Delete</button></td></tr>";
+						firstname +
+						"</td><td>" +
+						lastname +
+						"</td><td><button id='" +
+						id +
+						"' name='" +
+						firstname +
+						" " +
+						lastname +
+						"' type='submit' onclick=deleteStaff(this.id)>Delete</button></td></tr>";
 				}
 				document.getElementById("staff").innerHTML = table;
 			}
 
 			setInterval("showStaff()", 1000);
 		</script>
+
+		<p><b>ADD NEW STAFF</b></p>
+		<label for="firstname"><b>First Name:</b></label>
+		<input id="firstname" type="text" value="" /><br />
+		<br />
+		<label for="lastname"><b>Last Name:</b></label>
+		<input id="lastname" type="text" value="" /><br /><br />
+		<button onclick="addStaff()">Add</button><br /><br /><br />
+
+		<!--		<label-->
+		<!--		><b>Sort by:</b>-->
+		<!--			<select id="orderType" onchange="updateOrder()">-->
+		<!--				<option>Ascending</option>-->
+		<!--				<option>Descending</option>-->
+		<!--			</select>-->
+		<!--		</label>-->
+		<!--		<label>-->
+		<!--			<select id="orderBy" onchange="updateOrder()">-->
+		<!--				<option>Time</option>-->
+		<!--				<option>Topic</option>-->
+		<!--			</select> </label-->
+		<!--		><br /><br />-->
+
+		<p><b>LIST OF CURRENT STAFF</b></p>
 		<table style="text-align: center">
 			<thead style="font-weight: bold">
 				<tr>
-					<td>Username</td>
-					<td>Name</td>
+					<td>ID Number</td>
+					<td>First Name</td>
+					<td>Last Name</td>
 					<td>Delete Staff</td>
 				</tr>
 			</thead>

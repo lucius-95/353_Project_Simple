@@ -1,20 +1,20 @@
 CREATE DATABASE IF NOT EXISTS simple;
 USE simple;
 CREATE TABLE IF NOT EXISTS users (
-    username    varchar(200) NOT NULL primary key,
-    name        varchar(100),
-    role        varchar(100),
-    password    varchar(200)
+    id          int unsigned AUTO_INCREMENT PRIMARY KEY,
+    firstname   varchar(100),
+    lastname    varchar(100),
+    role        varchar(100)
 );
 
-INSERT IGNORE INTO users VALUES ('dillon', 'Dillon', 'Staff', 'admin'),
-                                ('lucius', 'Lucius', 'Staff', 'admin'),
-                                ('kyle', 'Kyle', 'Staff', 'admin'),
-                                ('hasin', 'Hasin', 'Staff', 'admin');
+INSERT INTO users (firstname, lastname, role) VALUES ('Dillon', 'Vu', 'Staff'),
+                                                     ('Lucius', 'Ho', 'Staff'),
+                                                     ('Kyle', 'Holtby', 'Staff'),
+                                                     ('Hasin', 'Raihan', 'Staff');
 
-INSERT IGNORE INTO users VALUES ('cus1', 'Cus1', 'Customer', 'none'),
-                                ('cus2', 'Cus2', 'Customer', 'none'),
-                                ('cus3', 'Cus3', 'Customer', 'none');
+INSERT INTO users (firstname, lastname, role) VALUES ('1', 'Cus', 'Customer'),
+                                                     ('2', 'Cus', 'Customer'),
+                                                     ('3', 'Cus', 'Customer');
 
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'admin';
 FLUSH PRIVILEGES;
