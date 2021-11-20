@@ -3,17 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>List of Customers</title>
-		<style>
-			table,
-			th,
-			td {
-				border: 1px solid black;
-				border-collapse: collapse;
-				padding: 3px 10px;
-				column-width: 300px;
-				max-width: 900px;
-			}
-		</style>
+		<link href="css/show-users.css" rel="stylesheet" />
 	</head>
 	<body onload="showStaff()">
 		<script type="text/javascript">
@@ -34,6 +24,27 @@
 				};
 			}
 
+			function deleteCustomer(id) {
+				if (confirm(`Delete customer whose username is ${id}?`)) {
+					let http = new XMLHttpRequest();
+					let param = "username=" + id;
+
+					http.responseType = "json";
+					http.open("POST", "/delete-user", true);
+					http.setRequestHeader(
+						"Content-type",
+						"application/x-www-form-urlencoded"
+					);
+					http.send(param);
+
+					http.onload = () => {
+						if (http.status === 200) {
+							updateTable(http.response);
+						}
+					};
+				}
+			}
+
 			function updateTable(data) {
 				let table = "";
 				for (let i = 0; i < data.length; i++) {
@@ -42,7 +53,9 @@
 						data[i].username +
 						"</td><td>" +
 						data[i].name +
-						"</td></tr>";
+						"</td><td><button id=" +
+						data[i].username +
+						" type=submit onclick=deleteCustomer(this.id)>Delete</button></td></tr>";
 				}
 				document.getElementById("customers").innerHTML = table;
 			}
@@ -50,11 +63,12 @@
 			setInterval("showStaff()", 1000);
 		</script>
 
-		<table style="text-align: center">
+		<table class="center" style="text-align: center">
 			<thead style="font-weight: bold">
 				<tr>
 					<td>Username</td>
 					<td>Name</td>
+					<td>Delete Customer</td>
 				</tr>
 			</thead>
 			<tbody id="customers"></tbody>

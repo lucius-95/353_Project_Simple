@@ -2,8 +2,8 @@
 
 // Load packages
 const express = require("express");
-const { showStaff, showCustomers } = require("./show_users");
-const { deleteUser } = require("./delete_user");
+const { showStaff, showCustomers } = require("./show-users");
+const { deleteUser } = require("./delete-user");
 const { auth } = require("./auth");
 
 // Definitions

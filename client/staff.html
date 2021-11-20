@@ -3,17 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>List of Staff</title>
-		<style>
-			table,
-			th,
-			td {
-				border: 1px solid black;
-				border-collapse: collapse;
-				padding: 3px 10px;
-				column-width: 200px;
-				max-width: 500px;
-			}
-		</style>
+		<link href="css/show-users.css" rel="stylesheet" />
 	</head>
 	<body onload="showStaff()">
 		<script type="text/javascript">
@@ -34,7 +24,7 @@
 				};
 			}
 
-			function deleteUser(id) {
+			function deleteStaff(id) {
 				if (confirm(`Delete staff whose username is ${id}?`)) {
 					let http = new XMLHttpRequest();
 					let param = "username=" + id;
@@ -65,7 +55,7 @@
 						data[i].name +
 						"</td><td><button id=" +
 						data[i].username +
-						" type=submit onclick=deleteUser(this.id)>Delete</button></td></tr>";
+						" type=submit onclick=deleteStaff(this.id)>Delete</button></td></tr>";
 				}
 				document.getElementById("staff").innerHTML = table;
 			}
