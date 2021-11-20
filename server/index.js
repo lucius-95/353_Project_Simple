@@ -6,7 +6,7 @@ const { showUsers } = require("./show-users");
 const { deleteUser } = require("./delete-user");
 const { auth } = require("./auth");
 const { register } = require("./register");
-const { addStaff, addCustomer } = require("./add-user");
+const { addUser } = require("./add-user");
 
 // Definitions
 const PORT = 8080;
@@ -19,8 +19,7 @@ app.post("/show-users", showUsers);
 app.post("/auth", auth);
 app.post("/register", register);
 app.post("/delete-user", deleteUser);
-app.post("/add-staff", addStaff);
-app.post("/add-customer", addCustomer);
+app.post("/add-user", addUser);
 
 app.use("/", express.static("./client"));
 
