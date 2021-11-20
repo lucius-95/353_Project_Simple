@@ -7,10 +7,10 @@ exports.editUser = (req, res) => {
 
 		let { id, firstname, lastname } = req.body;
 
-		let sql = `UPDATE users SET firstname='${firstname}', lastname='${lastname}' WHERE id='${id}')`;
+		let sql = `UPDATE users SET firstname='${firstname}', lastname='${lastname}' WHERE id='${id}'`;
 		con.query(sql, (err) => {
 			if (err) throw err;
-			res.send("User added!");
+			res.send("User edited!");
 			con.release();
 		});
 	});

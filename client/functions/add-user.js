@@ -15,9 +15,9 @@ function addUser(role) {
 
 		http.onload = () => {
 			if (http.status === 200) {
-				alert("Staff added successfully!");
+				alert(`${role} added successfully!`);
 			} else {
-				alert("ERROR: Failed to add staff!");
+				alert(`ERROR: Failed to add ${role}!`);
 			}
 		};
 	}

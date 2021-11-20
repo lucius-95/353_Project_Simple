@@ -34,7 +34,7 @@ function showUsers(role) {
 
 function deleteUser(id) {
 	let name = document.getElementById(id).name;
-	if (confirm(`Delete staff ${name} whose ID is ${id}?`)) {
+	if (confirm(`Delete user ${name} whose ID is ${id}?`)) {
 		let http = new XMLHttpRequest();
 		let param = "id=" + id;
 

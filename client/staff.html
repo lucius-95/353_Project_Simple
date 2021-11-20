@@ -9,6 +9,7 @@
 	<body onload="showUsers('Staff')">
 		<script type="text/javascript" src="./functions/add-user.js"></script>
 		<script type="text/javascript" src="./functions/show-users.js"></script>
+		<script type="text/javascript" src="./functions/edit-user.js"></script>
 		<script type="text/javascript">
 			setInterval("showUsers('Staff')", 1000);
 		</script>
@@ -33,7 +34,9 @@
 				<br />
 				<label for="newLastname"><b>New Last Name:</b></label>
 				<input id="newLastname" type="text" value="" /><br /><br />
-				<button onclick="editUser()">Edit</button>
+				<button onclick="editUser(document.getElementById('id').value)">
+					Edit
+				</button>
 			</div>
 		</div>
 

@@ -7,6 +7,7 @@ const { deleteUser } = require("./delete-user");
 const { auth } = require("./auth");
 const { register } = require("./register");
 const { addUser, addEvent } = require("./add-user");
+const { editUser } = require("./edit-user");
 
 // Definitions
 const PORT = 8080;
@@ -22,6 +23,7 @@ app.post("/delete-user", deleteUser);
 app.get("/show-events", showEvents);
 app.post("/add-event", addEvent);
 app.post("/add-user", addUser);
+app.post("/edit-user", editUser);
 
 app.use("/", express.static("./client"));
 
