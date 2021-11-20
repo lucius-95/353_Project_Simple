@@ -47,7 +47,11 @@
 						if (http.status === 200) {
 							updateTable(http.response);
 							alert("Event added successfully!");
-						} else {
+						} 
+                        else if (http.status === 404) {
+                            alert("ERROR: Staff ID not found!")
+                        }
+                        else {
 							alert("ERROR: Failed to add event!");
 						}
 					};
