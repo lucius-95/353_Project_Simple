@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     role        varchar(100)
 );
 CREATE TABLE IF NOT EXISTS events (
-    events      varchar(200),
+    id          int unsigned AUTO_INCREMENT PRIMARY KEY,
+    event       varchar(200),
     user        varchar(100),
     time        varchar(100)
 );
@@ -20,6 +21,8 @@ INSERT INTO users (firstname, lastname, role) VALUES ('Dillon', 'Vu', 'Staff'),
 INSERT INTO users (firstname, lastname, role) VALUES ('1', 'Cus', 'Customer'),
                                                      ('2', 'Cus', 'Customer'),
                                                      ('3', 'Cus', 'Customer');
+
+INSERT INTO events (event, user, time) VALUES ('353Project', 'Kyle Holtby', '2021/11/25 4:45 PM');
 
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'admin';
 FLUSH PRIVILEGES;
