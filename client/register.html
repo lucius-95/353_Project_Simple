@@ -1,26 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Project_Simple</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Project_Simple</title>
+</head>
+<body>
+	<script>	
+		function register() {
+			// Get our inputs
+			let username = document.getElementById("username").value;
+			let name = document.getElementById("name").value;
+			let role = (document.getElementById("role").checked ? "Staff" : "Customer");
+			let password = document.getElementById("password").value;
 
-	<body>
-		<form method="POST" action="/register">
-			<label for="Username">Enter Username:</label>
-			<input type="text" id="username" required />
-			<br />
-			<label for="Name">Enter Name:</label>
-			<input type="text" id="name" required />
-			<br />
-			<label for="Role">Are you a Staff?</label>
-			<input type="checkbox" id="role" />
-			<br />
-			<label for="Password">Enter Password:</label>
-			<input type="text" id="password" required />
-			<br />
-			<button type="submit">Register</button>
-			<p>Already have an account? <a href="login.html">Log in Here</a></p>
-		</form>
-	</body>
+			if (username != null && name != null && password != null) {
+				// Prepare a request to server
+				let http = new XMLHttpRequest();
+				let url = "/register";
+				let params = "username="+username+"&name="+name+"&role="+role+"&password="+password;
+
+				// Open the request and send over POST data
+				http.open("POST", url, true);
+				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				http.send(params);
+
+				http.onload = function() {
+					if (http.status != 200) { 
+						alert("User already exists");
+						return;
+					}
+					console.log("successful post");
+					window.location.assign("/dashboard.html");
+				}
+			}
+			else {
+				alert("Please fill in all fields");
+			}
+		}
+	</script>
+
+	<label for="Username">Enter Username:</label>
+	<input type="text" id="username">
+	<br>
+	<label for="Name">Enter Name:</label>
+	<input type="text" id="name">
+	<br>
+	<label for="Role">Are you a Staff?</label>
+	<input type="checkbox" id="role">
+	<br>
+	<label for="Password">Enter Password:</label>
+	<input type="text" id="password">
+	<br>
+	<button onclick="register()">Register</button>
+	<p>Already have an account? <a href="login.html">Log in Here</a></p>
+</body>
+
 </html>

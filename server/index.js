@@ -5,6 +5,7 @@ const express = require("express");
 const { showStaff, showCustomers } = require("./show-users");
 const { deleteUser } = require("./delete-user");
 const { auth } = require("./auth");
+const { register } = require("./register");
 
 // Definitions
 const PORT = 8080;
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/show-staff", showStaff);
 app.get("/show-customers", showCustomers);
 app.post("/auth", auth);
+app.post("/register", register);
 app.post("/delete-user", deleteUser);
 
 app.use("/", express.static("../client"));
