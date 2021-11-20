@@ -20,6 +20,7 @@ exports.showCustomers = (req, res) => {
 		let sql = "SELECT * FROM users WHERE role='User' ORDER BY username";
 		con.query(sql, (err, data) => {
 			if (err) throw err;
+			console.log(data);
 			res.json(data);
 			con.release();
 		});
