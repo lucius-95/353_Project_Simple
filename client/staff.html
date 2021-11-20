@@ -66,12 +66,6 @@
 						"application/x-www-form-urlencoded"
 					);
 					http.send(param);
-
-					http.onload = () => {
-						if (http.status === 200) {
-							updateTable(http.response);
-						}
-					};
 				}
 			}
 

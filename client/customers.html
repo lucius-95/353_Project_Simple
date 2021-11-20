@@ -57,9 +57,10 @@
 			}
 
 			function deleteCustomer(id) {
-				if (confirm(`Delete customer whose username is ${id}?`)) {
+				let name = document.getElementById(id).name;
+				if (confirm(`Delete customer ${name} whose ID is ${id}?`)) {
 					let http = new XMLHttpRequest();
-					let param = "username=" + id;
+					let param = "id=" + id;
 
 					http.responseType = "json";
 					http.open("POST", "/delete-user", true);
@@ -68,12 +69,6 @@
 						"application/x-www-form-urlencoded"
 					);
 					http.send(param);
-
-					http.onload = () => {
-						if (http.status === 200) {
-							updateTable(http.response);
-						}
-					};
 				}
 			}
 

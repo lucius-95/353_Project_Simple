@@ -4,11 +4,11 @@ exports.deleteUser = (req, res) => {
 	let { id } = req.body;
 	getConnection((err, con) => {
 		if (err) throw err;
-		console.log("User database connected!");
+		console.log("Database connected to delete user!");
 		let sql = `DELETE FROM users WHERE id='${id}'`;
-		con.query(sql, (err, data) => {
+		con.query(sql, (err) => {
 			if (err) throw err;
-			res.json(data);
+			res.send("User deleted!");
 			con.release();
 		});
 	});

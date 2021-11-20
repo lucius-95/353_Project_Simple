@@ -5,7 +5,7 @@ exports.showUsers = (req, res) => {
 		if (err) throw err;
 		console.log("Database connected to show users!");
 		let { role } = req.body;
-		let sql = `SELECT * FROM users WHERE role='${role}' ORDER BY role`;
+		let sql = `SELECT * FROM users WHERE role='${role}' ORDER BY lastname`;
 		con.query(sql, (err, data) => {
 			if (err) throw err;
 			res.json(data);
