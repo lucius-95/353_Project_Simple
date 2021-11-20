@@ -6,6 +6,11 @@ CREATE TABLE IF NOT EXISTS users (
     lastname    varchar(100),
     role        varchar(100)
 );
+CREATE TABLE IF NOT EXISTS events (
+    events      varchar(200),
+    user        varchar(100),
+    time        varchar(100)
+);
 
 INSERT INTO users (firstname, lastname, role) VALUES ('Dillon', 'Vu', 'Staff'),
                                                      ('Lucius', 'Ho', 'Staff'),
