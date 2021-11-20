@@ -3,29 +3,19 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>List of Customers</title>
-		<style>
-			table,
-			th,
-			td {
-				border: 1px solid black;
-				border-collapse: collapse;
-				padding: 3px 10px;
-				column-width: 300px;
-				max-width: 900px;
-			}
-		</style>
+		<link href="css/show-users.css" rel="stylesheet" />
 	</head>
-	<body onload="showStaff()">
+	<body onload="showCustomer()">
 		<script type="text/javascript">
-			function showStaff() {
+			function showCustomer() {
 				let http = new XMLHttpRequest();
 				http.responseType = "json";
-				http.open("GET", "/show-customers", true);
+				http.open("POST", "/show-users", true);
 				http.setRequestHeader(
 					"Content-type",
 					"application/x-www-form-urlencoded"
 				);
-				http.send();
+				http.send("role=Customer");
 
 				http.onload = () => {
 					if (http.status === 200) {
@@ -34,27 +24,96 @@
 				};
 			}
 
+			function addCustomer() {
+				let firstname = document.getElementById("firstname").value;
+				let lastname = document.getElementById("lastname").value;
+
+				if (!(firstname && lastname)) {
+					alert("ERROR: First name and/or last name must not be empty!");
+				} else {
+					let http = new XMLHttpRequest();
+					let params = "firstname=" + firstname + "&lastname=" + lastname;
+
+					http.open("POST", "/add-customer", true);
+					http.setRequestHeader(
+						"Content-type",
+						"application/x-www-form-urlencoded"
+					);
+					http.send(params);
+
+					http.onload = () => {
+						if (http.status === 200) {
+							updateTable(http.response);
+							alert("Customer added successfully!");
+						} else {
+							alert("ERROR: Failed to add customer!");
+						}
+					};
+				}
+			}
+
+			function deleteCustomer(id) {
+				if (confirm(`Delete customer whose username is ${id}?`)) {
+					let http = new XMLHttpRequest();
+					let param = "username=" + id;
+
+					http.responseType = "json";
+					http.open("POST", "/delete-user", true);
+					http.setRequestHeader(
+						"Content-type",
+						"application/x-www-form-urlencoded"
+					);
+					http.send(param);
+
+					http.onload = () => {
+						if (http.status === 200) {
+							updateTable(http.response);
+						}
+					};
+				}
+			}
+
 			function updateTable(data) {
 				let table = "";
 				for (let i = 0; i < data.length; i++) {
+					let { id, firstname, lastname } = data[i];
 					table +=
 						"<tr><td>" +
-						data[i].username +
+						id +
 						"</td><td>" +
-						data[i].name +
-						"</td></tr>";
+						firstname +
+						"</td><td>" +
+						lastname +
+						"</td><td><button id='" +
+						id +
+						"' name='" +
+						firstname +
+						" " +
+						lastname +
+						"' type='submit' onclick=deleteCustomer(this.id)>Delete</button></td></tr>";
 				}
 				document.getElementById("customers").innerHTML = table;
 			}
 
-			setInterval("showStaff()", 1000);
+			setInterval("showCustomer()", 1000);
 		</script>
 
+		<p><b>ADD NEW CUSTOMER</b></p>
+		<label for="firstname"><b>First Name:</b></label>
+		<input id="firstname" type="text" value="" /><br />
+		<br />
+		<label for="lastname"><b>Last Name:</b></label>
+		<input id="lastname" type="text" value="" /><br /><br />
+		<button onclick="addCustomer()">Add</button><br /><br /><br />
+
+		<p><b>LIST OF CURRENT CUSTOMERS</b></p>
 		<table style="text-align: center">
 			<thead style="font-weight: bold">
 				<tr>
-					<td>Username</td>
-					<td>Name</td>
+					<td>ID Number</td>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Delete Customer</td>
 				</tr>
 			</thead>
 			<tbody id="customers"></tbody>
