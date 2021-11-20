@@ -3,6 +3,7 @@
 // Load packages
 const express = require("express");
 let { showStaff } = require("./show_staff");
+let { auth } = require("./auth");
 
 // Definitions
 const PORT = 8080;
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Post method to let user post a new message
 app.get("/show-staff", showStaff);
+app.post("/auth", auth);
 
 app.use("/", express.static("../client"));
 
