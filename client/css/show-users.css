@@ -7,3 +7,13 @@ td {
 	column-width: 150px;
 	max-width: 800px;
 }
+
+.parent {
+	display: flex;
+	margin-bottom: 70px;
+}
+
+.child {
+	margin-right: 100px;
+	display: inline-block;
+}

@@ -1,120 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8" name="viewport" content="width=device-width" />
 		<title>List of Staff</title>
 		<link href="css/show-users.css" rel="stylesheet" />
 	</head>
-	<body onload="showStaff()">
+
+	<body onload="showUsers('Staff')">
+		<script type="text/javascript" src="./functions/add-user.js"></script>
+		<script type="text/javascript" src="./functions/show-users.js"></script>
 		<script type="text/javascript">
-			function showStaff() {
-				let http = new XMLHttpRequest();
-				http.responseType = "json";
-
-				http.open("POST", "/show-users", true);
-				http.setRequestHeader(
-					"Content-type",
-					"application/x-www-form-urlencoded"
-				);
-				http.send("role=Staff");
-
-				http.onload = () => {
-					if (http.status === 200) {
-						updateTable(http.response);
-					}
-				};
-			}
-
-			function addStaff() {
-				let firstname = document.getElementById("firstname").value;
-				let lastname = document.getElementById("lastname").value;
-
-				if (!(firstname && lastname)) {
-					alert("ERROR: First name and/or last name must not be empty!");
-				} else {
-					let http = new XMLHttpRequest();
-					let params =
-						"firstname=" + firstname + "&lastname=" + lastname + "&role=Staff";
-
-					http.open("POST", "/add-user", true);
-					http.setRequestHeader(
-						"Content-type",
-						"application/x-www-form-urlencoded"
-					);
-					http.send(params);
-
-					http.onload = () => {
-						if (http.status === 200) {
-							alert("Staff added successfully!");
-						} else {
-							alert("ERROR: Failed to add staff!");
-						}
-					};
-				}
-			}
-
-			function deleteStaff(id) {
-				let name = document.getElementById(id).name;
-				if (confirm(`Delete staff ${name} whose ID is ${id}?`)) {
-					let http = new XMLHttpRequest();
-					let param = "id=" + id;
-
-					http.responseType = "json";
-					http.open("POST", "/delete-user", true);
-					http.setRequestHeader(
-						"Content-type",
-						"application/x-www-form-urlencoded"
-					);
-					http.send(param);
-				}
-			}
-
-			function updateTable(data) {
-				let table = "";
-				for (let i = 0; i < data.length; i++) {
-					let { id, firstname, lastname } = data[i];
-					table +=
-						"<tr><td>" +
-						id +
-						"</td><td>" +
-						firstname +
-						"</td><td>" +
-						lastname +
-						"</td><td><button id='" +
-						id +
-						"' name='" +
-						firstname +
-						" " +
-						lastname +
-						"' type='submit' onclick=deleteStaff(this.id)>Delete</button></td></tr>";
-				}
-				document.getElementById("staff").innerHTML = table;
-			}
-
-			setInterval("showStaff()", 1000);
+			setInterval("showUsers('Staff')", 1000);
 		</script>
 
-		<p><b>ADD NEW STAFF</b></p>
-		<label for="firstname"><b>First Name:</b></label>
-		<input id="firstname" type="text" value="" /><br />
-		<br />
-		<label for="lastname"><b>Last Name:</b></label>
-		<input id="lastname" type="text" value="" /><br /><br />
-		<button onclick="addStaff()">Add</button><br /><br /><br />
-
-		<!--		<label-->
-		<!--		><b>Sort by:</b>-->
-		<!--			<select id="orderType" onchange="updateOrder()">-->
-		<!--				<option>Ascending</option>-->
-		<!--				<option>Descending</option>-->
-		<!--			</select>-->
-		<!--		</label>-->
-		<!--		<label>-->
-		<!--			<select id="orderBy" onchange="updateOrder()">-->
-		<!--				<option>Time</option>-->
-		<!--				<option>Topic</option>-->
-		<!--			</select> </label-->
-		<!--		><br /><br />-->
+		<div class="parent">
+			<div class="child">
+				<p><b>ADD NEW STAFF</b></p>
+				<label for="firstname"><b>First Name:</b></label>
+				<input id="firstname" type="text" value="" /><br />
+				<br />
+				<label for="lastname"><b>Last Name:</b></label>
+				<input id="lastname" type="text" value="" /><br /><br />
+				<button onclick="addUser('Staff')">Add</button>
+			</div>
+			<div class="child">
+				<p><b>EDIT EXISTING STAFF</b></p>
+				<label for="id"><b>Staff ID:</b></label>
+				<input id="id" type="text" value="" /><br />
+				<br />
+				<label for="newFirstname"><b>New First Name:</b></label>
+				<input id="newFirstname" type="text" value="" /><br />
+				<br />
+				<label for="newLastname"><b>New Last Name:</b></label>
+				<input id="newLastname" type="text" value="" /><br /><br />
+				<button onclick="editUser()">Edit</button>
+			</div>
+		</div>
 
 		<p><b>LIST OF CURRENT STAFF</b></p>
 		<table style="text-align: center">
@@ -126,7 +47,7 @@
 					<td>Delete Staff</td>
 				</tr>
 			</thead>
-			<tbody id="staff"></tbody>
+			<tbody id="Staff"></tbody>
 		</table>
 	</body>
 </html>
