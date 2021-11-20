@@ -6,6 +6,11 @@ CREATE TABLE IF NOT EXISTS users (
     role        varchar(100),
     password    varchar(200)
 );
+CREATE TABLE IF NOT EXISTS events (
+    events      varchar(200),
+    user        varchar(100),
+    time        varchar(100)
+);
 
 INSERT IGNORE INTO users VALUES ('dillon', 'Dillon', 'Staff', 'admin'),
                                 ('lucius', 'Lucius', 'Staff', 'admin'),
