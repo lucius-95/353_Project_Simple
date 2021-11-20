@@ -17,7 +17,7 @@ exports.showUsers = (req, res) => {
 exports.showEvents = (req, res) => {
 	getConnection((err, con) => {
 		if (err) throw err;
-		con.query("SELECT * FROM events ORDER BY time", (err, data) => {
+		con.query("SELECT * FROM events ORDER BY id", (err, data) => {
 			if (err) throw err;
 			res.json(data);
 			con.release();
