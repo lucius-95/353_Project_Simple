@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" name="viewport" content="width=device-width" />
+		<title>List of Donations</title>
+		<link href="css/show-users.css" rel="stylesheet" />
+	</head>
+	<body onload="showDonations()">
+		<script type="text/javascript" src="./functions/report.js"></script>
+		<script type="text/javascript">
+			setInterval("showDonations()", 1000);
+		</script>
+
+		<div class="parent">
+			<div class="child">
+				<a href="dashboard.html">Return to Dashboard</a>
+				<p><b>ADD NEW DONATION</b></p>
+				<label for="amount"><b>Amount:</b></label>
+				<input id="amount" type="text" value="" /><br />
+				<br />
+				<label for="id"><b>ID:</b></label>
+				<input id="id" type="text" value="" /><br /><br />
+
+				<button onclick="addDonations()">Add</button><br /><br /><br />
+
+			</div>
+			<div class="child">
+				<p><b>TOTAL DONATIONS</b></p><br />
+				<p id="balance"></p>
+			</div>
+		</div>
+
+		<p><b>LIST OF CURRENT EVENTS</b></p>
+		<table style="text-align: center">
+			<thead style="font-weight: bold">
+				<tr>
+					<td>ID Number</td>
+					<td>Amount</td>
+					<td>Donation By</td>
+					<td>Date</td>
+				</tr>
+			</thead>
+			<tbody id="donations"></tbody>
+		</table>
+	</body>
+</html>

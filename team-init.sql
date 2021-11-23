@@ -6,11 +6,11 @@ CREATE TABLE IF NOT EXISTS users (
     lastname    varchar(100),
     role        varchar(100)
 );
-CREATE TABLE IF NOT EXISTS events (
+CREATE TABLE IF NOT EXISTS donations (
     id          int unsigned AUTO_INCREMENT PRIMARY KEY,
-    event       varchar(200),
+    amount      int unsigned,
     user        varchar(100),
-    time        varchar(100)
+    timestamp   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO users (firstname, lastname, role) VALUES ('Dillon', 'Vu', 'Staff'),
@@ -22,7 +22,7 @@ INSERT INTO users (firstname, lastname, role) VALUES ('1', 'Cus', 'Customer'),
                                                      ('2', 'Cus', 'Customer'),
                                                      ('3', 'Cus', 'Customer');
 
-INSERT INTO events (event, user, time) VALUES ('353Project', 'Kyle Holtby', '2021/11/25 4:45 PM');
+INSERT INTO donations (amount, user) VALUES (100, 'Kyle Holtby');
 
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'admin';
 FLUSH PRIVILEGES;

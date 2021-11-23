@@ -14,15 +14,15 @@ exports.deleteUser = (req, res) => {
 	});
 };
 
-exports.deleteEvent = (req, res) => {
+exports.deleteDonation = (req, res) => {
 	let { id } = req.body;
 	getConnection((err, con) => {
 		if (err) throw err;
-		console.log("Database connected to delete event!");
-		let sql = `DELETE FROM events WHERE id='${id}'`;
+		console.log("Database connected to delete donation!");
+		let sql = `DELETE FROM donations WHERE id='${id}'`;
 		con.query(sql, (err) => {
 			if (err) throw err;
-			res.send("Event deleted!");
+			res.send("Donation deleted!");
 			con.release();
 		});
 	});

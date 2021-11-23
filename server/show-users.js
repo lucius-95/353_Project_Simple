@@ -14,10 +14,21 @@ exports.showUsers = (req, res) => {
 	});
 };
 
-exports.showEvents = (req, res) => {
+exports.showDonations = (req, res) => {
 	getConnection((err, con) => {
 		if (err) throw err;
-		con.query("SELECT * FROM events ORDER BY id", (err, data) => {
+		con.query("SELECT * FROM donations ORDER BY id", (err, data) => {
+			if (err) throw err;
+			res.json(data);
+			con.release();
+		});
+	});
+};
+
+exports.getBal = (req, res) => {
+	getConnection((err, con) => {
+		if (err) throw err;
+		con.query("SELECT amount from donations", (err, data) => {
 			if (err) throw err;
 			res.json(data);
 			con.release();
