@@ -3,7 +3,7 @@
 // Load packages
 const express = require("express");
 const { showUsers, showEvents } = require("./show-users");
-const { deleteUser } = require("./delete-user");
+const { deleteUser, deleteEvent } = require("./delete-user");
 const { auth } = require("./auth");
 const { register } = require("./register");
 const { addUser, addEvent } = require("./add-user");
@@ -21,6 +21,7 @@ app.post("/auth", auth);
 app.post("/register", register);
 app.post("/delete-user", deleteUser);
 app.get("/show-events", showEvents);
+app.post("/delete-event", deleteEvent);
 app.post("/add-event", addEvent);
 app.post("/add-user", addUser);
 app.post("/edit-user", editUser);

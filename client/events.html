@@ -58,6 +58,19 @@
 				}
 			}
 
+			function deleteEvent(id) {
+				let event = document.getElementById(id).name;
+				if (confirm(`Do you want to delete event '${event}'?`)) {
+					let http = new XMLHttpRequest();
+					let param = "id=" + id;
+
+					http.responseType = "json";
+					http.open("POST", "/delete-event", true);
+					http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					http.send(param);
+				}
+			}
+
 			function updateTable(data) {
 				let table = "";
 				for (let i = 0; i < data.length; i++) {
@@ -71,7 +84,11 @@
 						user +
                         "</td><td>" +
 						time +
-						"</td></tr>";
+						"</td><td><button id='" +
+						id +
+						"' name='" +
+						event + 
+						"' type='submit' onclick=deleteEvent(this.id)>Delete</button></td></tr>";
 				}
 				document.getElementById("events").innerHTML = table;
 			}
