@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 CREATE TABLE IF NOT EXISTS donations (
     id          int unsigned AUTO_INCREMENT PRIMARY KEY,
-    amount      int unsigned,
+    amount      bigint unsigned,
     user        varchar(100),
     timestamp   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
