@@ -29,5 +29,5 @@ app.post("/edit-user", editUser);
 
 app.use("/", express.static("./client"));
 
-app.listen(PORT, HOST);
+app.listen(process.env.PORT);
 console.log("Server is up and running...");
