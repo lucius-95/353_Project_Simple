@@ -10,7 +10,7 @@ const { addUser, addDonation } = require("./add-user");
 const { editUser } = require("./edit-user");
 
 // Definitions
-const PORT = 8080;
+const PORT = 8000;
 const HOST = "localhost";
 const app = express();
 
